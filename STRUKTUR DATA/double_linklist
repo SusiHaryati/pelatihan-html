@@ -1,0 +1,674 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+
+void tambahDepan();
+void tambahBelakang();
+void tambahTengah();
+void tambahByValue();
+void tambahByIndex();
+void tampilDepan();
+void tampilBelakang();
+void hapusDepan();
+void hapustengah();
+void hapusByValue();
+void hapusBelakang();
+void updateByindex();
+void updateByvalue();
+void menu();
+void cetak();
+void tambah();
+void Delate();
+void update();
+void full();
+
+
+int data, value, tam,index;
+struct node
+{
+    int number;
+    struct node *next;
+    struct node *prev;
+} *head, *tail, *new, *check,*check2, *buff;
+
+void cetak()
+{
+
+    printf("\nMASUKKAN number:");
+    scanf("%d", &data);
+}
+
+void tambahDepan()
+{
+    new = malloc(0);
+    cetak();
+    new->number = data;
+    if (head == NULL)
+    {
+        tail = head;
+        head = tail = new;
+    }
+    else
+    {
+        new->next = head;
+        head->prev = new;
+        head = new;
+    }
+    head->prev = NULL;
+    tail->next = NULL;
+}
+
+void tambahBelakang()
+{
+    cetak();
+    new = malloc(0);
+    new->number = data;
+    if (head == NULL)
+    {
+         tail = head;
+        head = tail = new;
+    }
+    else
+    {
+        tail->next = new;
+        new->prev = tail;
+        tail = new;
+    }
+    head->prev = NULL;
+    tail->next = NULL;
+}
+
+void tambahTengah() {
+   
+    int tam;
+    new = malloc(0);
+    cetak();
+    new->number = data;
+    if(head==NULL)
+    {
+        tambahDepan();
+    }
+    else
+    {
+        check = head;
+        while(check->next != NULL)
+        {
+            check = check->next;
+            tam++;
+        }
+        tam /= 2;
+        check = head;
+        for(int a = 1; a < tam; a++)
+        {
+            check = check->next;
+        }
+        buff = check->next;
+        check->next = new;
+        new->next = buff;
+        buff->prev=new;
+        new->prev=check;
+    }
+}
+
+void tambahByIndex()
+{
+
+    int indeks;
+    int tamp = 0;
+    cetak();
+    new = malloc(0);
+    new->number = data;
+    if (head == NULL)
+    {
+       head = tail = new;
+       head->prev = NULL;
+       tail->next = NULL;
+
+    }
+    else{
+        printf("\n\tMasukan Indeks : ");
+        scanf("%d", &indeks);
+        check=head;
+        check2=tail;
+        while (check!= NULL  )
+        {
+            check = check->next;
+
+            tamp++;
+        }
+
+        if (indeks == 0)
+        {
+            new->next = head;
+            head->prev = new;
+            head = new;
+            head->prev = NULL;
+            tail->next = NULL;
+            // tambahDepan(); 
+        }
+        else if (indeks > tamp)
+        {
+            printf("\nIndeks Yang Anda Masukan Salah !!!");
+            getch();
+        }
+
+        else
+        {
+            check=head;
+            for (int a =0; a < indeks-1; a++)
+            {
+                check = check->next;
+            }
+            buff = check->next;
+            check->next=new;
+            new->next = buff;
+            buff->prev=new;
+            new->prev=check;
+        }
+    }
+}
+
+void tambahByValue()
+{
+    int tamp = 0;
+    cetak();
+   
+    new =malloc(0);
+    new->number = data;
+    if (head == NULL)
+    {
+       head = tail = new;
+       head->prev = NULL;
+       tail->next = NULL;
+
+     }
+
+    else
+    {
+        printf("\tMasukan value : ");
+        scanf("%d", &value);
+        check = head;
+        while (check != NULL)
+        {
+            check = check->next;
+            tamp++;
+        }
+        
+           check = head;
+            if(tail->number==value)
+            {
+                tambahBelakang();
+            }
+            else{
+                for (int i = 1; i < tamp ; i++)
+                {
+                    
+                    if (check->number == value)
+                    {
+                        buff= check->next;
+                        check->next = new;
+                        new->next =buff;
+                        buff->prev = new;
+                        new->prev = check;
+                    }
+                    check = check->next;
+                }
+            }
+        
+    }
+}
+
+void hapusDepan() {
+
+    if(head==NULL)
+    {
+        printf("\ndata kosong!");
+        getch();
+    }
+    else if(head=tail)
+    {
+        check = head;
+        free(check);
+        head = tail = NULL;
+    }
+    else {
+        check = head;
+        free(head);
+        head = head->next;
+        head->prev = NULL;
+    }
+}
+
+void hapusBelakang() {
+    if(head==NULL)
+    {
+        printf("\ndata kosong!!");
+        getch();
+
+    }
+    else if(head == tail)
+    {
+        check = tail;
+        free(check);
+        head = tail = NULL;
+    }
+    else {
+        check = tail;
+        free(check);
+        tail = tail->prev;
+        tail->next = NULL;
+
+    }
+}
+
+void hapustengah()
+{
+    if(head == NULL)
+    {
+        printf("\naData kosong!!");
+        getch();
+    }
+    else {
+        check = head;
+        if(head == tail)
+        {
+            check == tail;
+            free(check);
+            head = tail = NULL;
+        }
+        else {
+            check = head;
+            while(check != NULL)
+            {
+                tam++;
+                check = check->next;
+            }
+            tam /= 2;
+            check = head;
+            for(int a = 1; a < tam; a++)
+            {
+                check = check->next;
+
+            }
+            buff = check->next->next;
+            free(check -> next);
+            check->next = buff;
+            buff->prev = check;
+        }
+    }
+}
+
+
+void hapusByIndex()
+{
+    int tam=0;
+    if (head == NULL)
+    {
+        printf("Data Kosong\n");
+    }
+    else if(head ==tail)
+    {
+        head=tail=NULL;
+    }
+    else
+    {
+        printf("\tInput Index : ");
+        scanf("%d", &index);
+        check = head;
+        while (check->next != NULL)
+        {
+            check = check->next;
+            tam++;
+        }
+        check = head;
+        if (index == 0)
+        {
+            check = head;
+            free(check);
+            head = head->next;
+            head->prev = NULL;
+        }
+        else if (index > tam)
+        {
+            printf("INDEKS YANG DIMASUKAN SALAH !!!\n");
+            getch();
+        }
+        else if(index==data-1)
+        {
+            check = tail;
+            tail = tail->prev;
+            tail->next = NULL;
+            free(check);
+        }else
+        {
+            for (int i = 1; i < index-1; i++)
+            {
+                check = check->next;
+            }
+            buff = check->next->next;
+            free(check->next);
+            check->next = buff;
+            buff->prev=check;
+      }
+    }
+}
+
+void hapusByValue()
+{
+    int value, tam;
+    if(head == NULL)
+    {
+        printf("\ndata kosong");
+        getch();
+    }
+    else if(head->next==NULL)
+    {
+        head=tail=NULL;
+    }
+    else {
+        printf("\nvalue:");
+        scanf("%d", &value);
+        check = head;
+        while (check->next->next != NULL)
+        {
+            if(check->next->number == value) {
+                buff = check->next->next;
+                check->next = buff;
+                buff->prev = check;
+            }
+            else {
+                check = check->next;
+            }
+        }
+        if(head->number == value)
+        {
+            check = head;
+            free(check);
+            head = head->next;
+            head->prev = NULL;
+        }
+        if(tail->number == value)
+        {
+            check = tail;
+            free(check);
+            tail = tail->prev;
+            tail->next = NULL;
+        }
+    }
+}
+
+void updateByindex()
+{
+
+    int tam=0;
+    cetak();
+    printf("\nmasukkan index:"); scanf("%d",&index);
+    check=head;
+    while(check->next!=NULL)
+    {
+        check=check->next;
+        tam++;
+    }
+
+    if(head==NULL)
+    {
+        printf("data masih kosong\n");
+    }
+    else if(tam < index)
+    {
+        printf("index tidak ditemukan\n");
+    }
+    else{
+        check=head;
+        for(int a=0; a<tam-1; a++)
+        {
+            check=check->next;
+        }
+        check->number=data;
+    }
+}
+
+void updateByvalue()
+{
+    cetak();
+    int lenght = 0;
+    check = head;
+    printf("Masukkan value : ");
+    scanf("%d",&value);
+    while(check -> next != NULL)
+    {
+        lenght++;
+        check = check->next;
+    }
+
+    if(head == NULL)
+    {
+        printf("data masih kosong\n");
+    }
+    else if(lenght == 0)
+    {
+        printf("Data Tidak Ditemukan");
+    }
+    else
+    {
+        check = head;
+        while(check -> next != NULL)
+        {
+            if(check ->number == value)
+            {
+                check -> number = data;
+            }
+            check = check->next;
+        }
+    }
+}
+
+void full()
+{
+    int max=-999,min=999,rata,jumlah=0,tam=0;
+    check=head;
+    while(check!=NULL)
+    {
+        if(check->number>max)
+        {
+            max=check->number;
+        }
+
+        if(check->number<min)
+        {
+            min=check->number;
+        }
+
+        jumlah+=check->number;
+        tam++;
+        check=check->next;
+    }
+    rata=jumlah/tam;
+    printf("\n\nbilangan max\t:%d\n",max);
+    printf("bilangan min\t:%d\n",min);
+    printf("jumlah\t\t:%d\n",jumlah);
+    printf("rata-rata\t:%d",rata);
+    getch();
+}
+
+void tampilDepan()
+{   // Tampil dari depan
+    check = head;
+    while (check != NULL)
+    {
+        printf("|%d|->", check->number);
+        check = check->next;
+    }
+    printf("NULL\n");
+}
+
+void tampilBelakang()
+{   // Tampil dari belakang
+    check = tail;
+    while (check != NULL)
+    {
+        printf("|%d|->", check->number);
+        check = check->prev;
+    }
+    printf("NULL\n");
+}
+
+
+
+void tambah()
+{
+    char pilih;
+    system("cls");
+    printf("================================================================\n");
+    printf("=====================>>DOUBLE LINKED LIST<<=====================\n");
+    printf("================================================================\n");
+    tampilDepan();
+    tampilBelakang();
+    printf("================================================================\n");
+    printf("1.tambah depan\n2.tambah belakang\n3.Tambah tengah\n4.tambah by value\n5.tambah by index\n");
+    printf("================================================================");
+    printf("\nMASUKKAN PILIH:");
+    do
+    {
+        pilih = getche();
+        if (pilih == '1')
+        {
+            tambahDepan();
+            system("cls");
+            menu();
+        }
+        else if (pilih == '2')
+        {
+            tambahBelakang();
+            system("cls");
+            menu();
+        }
+        else if(pilih == '3')
+        {
+            tambahTengah();
+            system("cls");
+            menu();
+        }
+        else if(pilih == '4') {
+            tambahByValue();
+            system("cls");
+            menu();
+        }
+        else if(pilih == '5')
+        {
+            tambahByIndex();
+            system("cls");
+            menu();
+
+        }
+
+    } while (pilih != 6);
+
+}
+
+
+void Delate()
+{
+    system("cls");
+    char pilih;
+    printf("================================================================\n");
+    printf("=====================>>DOUBLE LINKED LIST<<=====================\n");
+    printf("================================================================\n");
+    tampilDepan();
+    tampilBelakang();
+    printf("================================================================\n");
+    printf("1.Hapus Depan\n2.Hapus Belakang\n3.Hapus tengah\n4.Hapus By value\n5.Hapus By Index\n");
+    printf("================================================================");
+    printf("\nMASUKKAN PILIH:");
+    do
+    {
+        pilih = getche();
+        if (pilih == '1')
+        {
+            hapusDepan();
+            system("cls");
+            menu();
+        }
+        else if (pilih == '2')
+        {
+            hapusBelakang();
+            system("cls");
+            menu();
+        }
+        else if(pilih == '3')
+        {
+            hapustengah();
+            system("cls");
+            menu();
+        }
+        else if(pilih == '4') {
+            hapusByValue();
+            system("cls");
+            menu();
+        }
+        else if(pilih == '5')
+        {
+            hapusByIndex();
+            system("cls");
+            menu();
+
+        }
+
+    } while (pilih != 5);
+
+}
+void menu()
+{
+    char pilih;
+    printf("================================================================\n");
+    printf("=====================>>DOUBLE LINKED LIST<<=====================\n");
+    printf("================================================================\n");
+    tampilDepan();
+    tampilBelakang();
+    printf("================================================================\n");
+    printf("1.Tambah\n2.Delate\n3.Update index\n4.update value\n5.cek(min,max,jumlah,dan rata-rata)\n");
+    printf("================================================================");
+    printf("\nMASUKKAN PILIH:");
+    do
+    {
+        pilih = getche();
+        if (pilih == '1')
+        {
+            tambah();
+            system("cls");
+            menu();
+        }
+        else if (pilih == '2')
+        {
+            Delate();
+            system("cls");
+            menu();
+        }
+        else if(pilih == '3')
+        {
+            updateByindex();
+            system("cls");
+            menu();
+        }
+        else if(pilih == '4') {
+            updateByvalue();
+            system("cls");
+            menu();
+        }
+        else if(pilih == '5')
+        {
+            full();
+            system("cls");
+            menu();
+
+        }
+
+    } while (pilih != 6);
+
+}
+void main()
+{
+    menu();
+    getch();
+    }

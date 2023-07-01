@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan2</title>
+    <style>
+        fieldset {
+            border-radius: 4px;
+            width: 300px;
+            margin: auto;
+            gap: 16px;
+            background-color: #00ff00;
+        }
+
+        input,select {
+            display: flex;
+            flex-direction: column;
+            width: 280px;
+            padding: 6px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+        }
+
+        button {
+            margin-top: 6px;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .jk{
+
+            flex-direction: row;
+        }
+        
+    </style>
+    <!-- 
+    <style>
+        fieldset {
+            margin: auto;
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        input {
+            padding: 6px 16px;
+            border-radius: 4px;
+            border: 1px solid black;
+        }
+
+        input:focus {
+            background-color: gainsboro;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        button:hover {
+            background-color: red;
+        }
+    </style> -->
+
+    
+</head>
+
+<body>
+    <form action="">
+        <fieldset>
+            <div class="judul">
+                Welcome to Getch
+            </div>
+            <div class="isi">
+                <br>
+                <label for="nama">Name</label>
+                <input type="text">
+                <label for="umur">Age</label>
+                <input type="text">
+                <label for="tgl">Date of Birthday</label>
+                <input type="date" placeholder="hh/bb/tttt">
+                
+                <div class="jk">
+                    <label for="jk">Gender
+                    <input type="radio">Male
+                <input type="radio">Female</label>
+                </div>
+                
+                <label for="kota">City</label>
+                <select name="" id="">
+                    <option value="bdg">Bandung</option>
+                    <option value="mdn">Medan</option>
+                </select>
+
+            </div>
+            <button>Join Us</button> <button>Reset Data</button>
+        </fieldset>
+        <img src="" alt="">
+           <a href=""></a>
+    </form>
+
+</body>
+
+</html>
